@@ -9,7 +9,7 @@ https://www.instructables.com/Mini-Retro-TV/
 https://www.instructables.com/Mini-ESP32-TV-remix/ (my personal favorite) 
 
 
-Theres an .exe for windows users, so you dont need Python installed and ffmpeg is bundled. Select a folder containing your video files, they need to be avi, mkv or mp4. It will process each video and put it into folders (same name as the video file) and rename the outputted video/audio file to match the required names. You can also paste in a YouTube URL and it will grab that and then convert it.
+Theres an .exe for windows users, so you dont need Python installed and ffmpeg is bundled. Select a folder containing your video files, they need to be avi, mkv, mp4 or m4v. It will process each video and put it into folders (same name as the video file) and rename the outputted video/audio file to match the required names. You can also paste in a YouTube URL and it will grab that and then convert it.
 
 I have tested AVI files and MKV files (upto 1080p) and convert fine but I'd imagine not every format will be perfect, obviously theres the issue of widescreen, most stuff is designed for widescreen, even then some have large borders so its wider again! The encoded videos will have no borders top or bottom but can mean you miss a lot of stuff on the sides. I had tested a lot of different output sizes and felt silly have borders top and bottom on a tiny 1.69" display and made it even harder to see. You can always adjust the settings in the python file if you wish.
 

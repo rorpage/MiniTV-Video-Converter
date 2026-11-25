@@ -5,13 +5,12 @@ import subprocess
 import threading
 import sys
 import time
-import shutil
 import platform
 import urllib.request
 
 # --- Configuration ---
 # You can easily change the accepted file formats here.
-ACCEPTED_FORMATS = ('.avi', '.mp4', '.mkv', '.webm')
+ACCEPTED_FORMATS = ('.avi', '.mp4', '.m4v', '.mkv', '.webm')
 
 # --- End of Configuration ---
 
@@ -485,7 +484,7 @@ class ConverterApp:
         
         status = self.run_ffmpeg_command(v_cmd, filename)
         if status != 'success':
-            if not self.stop_requested: shutil.rmtree(output_dir, ignore_errors=True)
+            if not self.stop_requested: self.remove_partial_outputs(output_dir, v_path, a_path)
             return
 
         # --- 2. Audio Conversion ---
@@ -497,7 +496,20 @@ class ConverterApp:
 
         status = self.run_ffmpeg_command(a_cmd, filename)
         if status != 'success':
-            if not self.stop_requested: shutil.rmtree(output_dir, ignore_errors=True)
+            if not self.stop_requested: self.remove_partial_outputs(output_dir, v_path, a_path)
+
+    @staticmethod
+    def remove_partial_outputs(output_dir, *paths):
+        """Deletes only this file's outputs, never the shared output folder's other contents."""
+        for path in paths:
+            try:
+                os.remove(path)
+            except FileNotFoundError:
+                pass
+        try:
+            os.rmdir(output_dir)  # only succeeds if the folder is now empty
+        except OSError:
+            pass
 
 
 if __name__ == "__main__":
